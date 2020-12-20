@@ -15,7 +15,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,8 +22,11 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-    RequestQueue mRequestQueue;
-    RequestQueue mRequestQueueArray;
+//    RequestQueue mRequestQueue;
+//    RequestQueue mRequestQueueArray;
+
+    RequestQueue mSigletonRequestQueue;
+
     TextView textViewJsonObjectElement,textViewJsonArrayElement;
     Button btnNextJoke,btnNextJoke2;
 
@@ -34,8 +36,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mRequestQueue = Volley.newRequestQueue(this);
-        mRequestQueueArray = Volley.newRequestQueue(this);
+//        mRequestQueue = Volley.newRequestQueue(this);
+//        mRequestQueueArray = Volley.newRequestQueue(this);
+
+        mSigletonRequestQueue=VolleySingleton.getInstance().getRequestQueue();
 
         textViewJsonObjectElement = findViewById(R.id.textViewJsonObjectElement);
         btnNextJoke = findViewById(R.id.btnNextJoke);
@@ -72,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                mRequestQueue.add(jsonObjectRequest);
+                mSigletonRequestQueue.add(jsonObjectRequest);
             }
         });
 
@@ -108,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
-                mRequestQueueArray.add(jsonArrayRequest);
+                mSigletonRequestQueue.add(jsonArrayRequest);
 
             }
         });
